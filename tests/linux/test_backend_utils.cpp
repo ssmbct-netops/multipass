@@ -222,14 +222,14 @@ TEST(BackendUtils, image_resizing_checks_minimum_size_and_proceeds_when_larger)
                         qemuimg_resize_result, throw_msg_matcher);
 }
 
-TEST(BackendUtils, image_resizing_checks_minimum_size_and_proceeds_when_equal)
+TEST(BackendUtils, image_resizing_checks_minimum_size_and_doesnt_proceed_when_equal)
 {
     const auto img = "/fake/img/path";
     const auto min_size = mp::MemorySize{"1234554321"};
     const auto request_size = min_size;
     const auto qemuimg_info_output = "";
     const auto qemuimg_info_result = success;
-    const auto attempt_resize = true;
+    const auto attempt_resize = false;
     const auto qemuimg_resize_result = success;
     const auto throw_msg_matcher = null_string_matcher;
 

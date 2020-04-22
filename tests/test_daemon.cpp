@@ -685,6 +685,6 @@ INSTANTIATE_TEST_SUITE_P(Daemon, MinSpaceRespectedSuite,
                                  Values("1024m", "2Gb", "987654321")));
 INSTANTIATE_TEST_SUITE_P(Daemon, MinSpaceViolatedSuite,
                          Combine(Values("test_create", "launch"), Values("--mem", "--disk"),
-                                 Values("0", "0B", "0GB", "123B", "42kb", "100")));
+                                 Values("123B", "42kb", "100")));
 
 } // namespace

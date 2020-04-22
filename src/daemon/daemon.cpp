@@ -321,7 +321,7 @@ auto validate_create_arguments(const mp::LaunchRequest* request)
     auto option_errors = mp::LaunchError{};
 
     const auto opt_mem_size = try_mem_size(mem_size_str.empty() ? mp::default_memory_size : mem_size_str);
-    const auto opt_disk_space = try_mem_size(disk_space_str.empty() ? mp::default_disk_size : disk_space_str);
+    const auto opt_disk_space = try_mem_size(disk_space_str.empty() ? "0" : disk_space_str);
 
     mp::MemorySize mem_size{}, disk_space{};
     if (opt_mem_size && *opt_mem_size >= min_mem)
@@ -329,7 +329,7 @@ auto validate_create_arguments(const mp::LaunchRequest* request)
     else
         option_errors.add_error_codes(mp::LaunchError::INVALID_MEM_SIZE);
 
-    if (opt_disk_space && *opt_disk_space >= min_disk)
+    if (opt_disk_space && (*opt_disk_space >= min_disk || 0 == opt_disk_space->in_bytes()))
         disk_space = *opt_disk_space;
     else
         option_errors.add_error_codes(mp::LaunchError::INVALID_DISK_SIZE);
